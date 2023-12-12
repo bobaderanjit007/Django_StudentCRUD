@@ -24,6 +24,10 @@ def home(request):
 def student(request):
 
     students = Students.objects.all()
+    if request.method == "GET":
+        sname = request.GET.get("search")
+        if sname != None:
+            students = Students.objects.filter(name__icontains = sname)
 
     return render(request, 'students.html', {'students' : students})
 
